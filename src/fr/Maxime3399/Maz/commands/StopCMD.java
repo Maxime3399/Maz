@@ -11,12 +11,12 @@ public class StopCMD {
 		Role role = message.getGuild().getRoles().get(0);
 		if(message.getGuild().getMember(message.getAuthor()).getRoles().contains(role)) {
 			
-			message.getChannel().sendMessage("Déconnection du bot.").complete();
+			message.getChannel().sendMessage(message.getAuthor().getAsMention()+" | Déconnection du bot.").complete();
 			MainClass.shutdown();
 			
 		}else {
 			
-			message.getChannel().sendMessage(message.getAuthor().getAsMention()+" vous n'avez pas la permission d'effectuer cette commande !").complete();
+			message.getChannel().sendMessage(message.getAuthor().getAsMention()+" | Vous n'avez pas la permission d'effectuer cette commande !").complete();
 			
 		}
 		
