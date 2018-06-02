@@ -14,9 +14,10 @@ public class MainClass {
 	
 	public static void main(String[] args) {
 		
+		System.out.println("[Maz] Connexion à la base de données...");
 		if(MySQLUtils.connect()) {
 			
-			System.out.println("[Maz] Connexion à la base de donnée établie !");
+			System.out.println("[Maz] Connexion à la base de données établie !");
 			
 			boolean error = false;
 			System.out.println("[Maz] Connexion du bot au serveur...");
@@ -34,12 +35,12 @@ public class MainClass {
 			
 			if(error) {
 				
-				System.out.println("[Maz] La connexion a échouée !");
+				System.out.println("[Maz] La connexion au serveur discord a échouée !");
 				
 			}else {
 				
 				System.out.println("[Maz] Bot connecté au serveur discord !");
-				EventsManager.registerEvents(jda);
+				EventsManager.registerEvents();
 				
 			}
 			
@@ -51,9 +52,17 @@ public class MainClass {
 		
 	}
 	
+	public static JDA getJDA() {
+		
+		return jda;
+		
+	}
+	
 	public static void shutdown() {
 		
+		System.out.println("[Maz] Bot déconnecté.");
 		jda.shutdown();
+		System.exit(0);
 		
 	}
 

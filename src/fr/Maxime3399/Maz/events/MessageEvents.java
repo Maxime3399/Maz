@@ -1,12 +1,12 @@
 package fr.Maxime3399.Maz.events;
 
-import fr.Maxime3399.Maz.MainClass;
+import fr.Maxime3399.Maz.managers.CommandsManager;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 
 public class MessageEvents implements EventListener{
-
+	
 	@Override
 	public void onEvent(Event event) {
 		
@@ -18,9 +18,17 @@ public class MessageEvents implements EventListener{
 				
 				e.getTextChannel().sendMessage("pong").complete();
 				
-			}else if(e.getMessage().getContentDisplay().equalsIgnoreCase("//stop")) {
+			}
+			
+			if(!e.getAuthor().equals(e.getJDA().getSelfUser())) {
 				
-				MainClass.shutdown();
+				String message = e.getMessage().getContentRaw();
+				if(message.startsWith("//")) {
+					
+					message = message.replaceFirst("//", "");
+					CommandsManager.executeCommand(e.getMessage(), message);
+					
+				}
 				
 			}
 			
