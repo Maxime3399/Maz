@@ -1,0 +1,14 @@
+package fr.Maxime3399.Maz.managers;
+
+import fr.Maxime3399.Maz.events.MessageEvents;
+import net.dv8tion.jda.core.JDA;
+
+public class EventsManager {
+	
+	public static void registerEvents(JDA jda) {
+		
+		jda.addEventListener(new MessageEvents());
+		
+	}
+
+}
