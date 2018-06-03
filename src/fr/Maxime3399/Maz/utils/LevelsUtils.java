@@ -33,22 +33,36 @@ public class LevelsUtils {
 		int exp = MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp");
 		int level = MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "level");
 		
-		if(exp >= getRequiredExp(level)) {
+		if(level != 500) {
 			
-			exp = exp-getRequiredExp(level);
-			level++;
+			if(exp >= getRequiredExp(level)) {
+				
+				exp = exp-getRequiredExp(level);
+				level++;
+				
+			}
+			
+			MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
+			MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
+			
+			if(level >= 401) {
+				level = level-400;
+			}else if(level >= 301) {
+				level = level-300;
+			}else if(level >= 201) {
+				level = level-200;
+			}else if(level >= 101) {
+				level = level-100;
+			}
+			
+			int anc = level-1;
+			GuildController gc = member.getGuild().getController();
+			Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
+			gc.removeSingleRoleFromMember(member, rAncient);
+			Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
+			gc.addSingleRoleToMember(member, rNew);
 			
 		}
-		
-		MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
-		MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
-		
-		int anc = level-1;
-		GuildController gc = member.getGuild().getController();
-		Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
-		gc.removeSingleRoleFromMember(member, rAncient);
-		Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
-		gc.addSingleRoleToMember(member, rNew);
 		
 	}
 
