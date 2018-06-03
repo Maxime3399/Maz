@@ -1,9 +1,11 @@
 package fr.Maxime3399.Maz.events;
 
 import fr.Maxime3399.Maz.managers.CommandsManager;
+import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
+import net.dv8tion.jda.core.managers.GuildController;
 
 public class MessageEvents implements EventListener{
 	

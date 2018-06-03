@@ -1,5 +1,6 @@
 package fr.Maxime3399.Maz.commands;
 
+import fr.Maxime3399.Maz.utils.LevelsUtils;
 import fr.Maxime3399.Maz.utils.MySQLUtils;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
@@ -24,7 +25,7 @@ public class ProfileCMD {
 				birthday = "`"+birthday+"`";
 			}
 			
-			message.getChannel().sendMessage(" __Profile de "+message.getAuthor().getAsMention()+"__\n \n**Informations :**\nNom : `"+message.getAuthor().getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nMoney : `"+money+"`\nXP : `"+exp+"/?`\nNiveau : `"+level+"`").complete();
+			message.getChannel().sendMessage(" __Profile de "+message.getAuthor().getAsMention()+"__\n \n**Informations :**\nNom : `"+message.getAuthor().getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nMoney : `"+money+"`\nXP : `"+exp+"/"+LevelsUtils.getRequiredExp(level)+"`\nNiveau : `"+level+"`").complete();
 			
 		}else if(args.length == 2) {
 			
@@ -48,7 +49,7 @@ public class ProfileCMD {
 					birthday = "`"+birthday+"`";
 				}
 				
-				message.getChannel().sendMessage(" __Profile de "+user.getAsMention()+"__\n \n**Informations :**\nNom : `"+user.getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nMoney : `"+money+"`\nXP : `"+exp+"/?`\nNiveau : `"+level+"`").complete();
+				message.getChannel().sendMessage(" __Profile de "+user.getAsMention()+"__\n \n**Informations :**\nNom : `"+user.getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nMoney : `"+money+"`\nXP : `"+exp+"/"+LevelsUtils.getRequiredExp(level)+"`\nNiveau : `"+level+"`").complete();
 				
 			}
 			
