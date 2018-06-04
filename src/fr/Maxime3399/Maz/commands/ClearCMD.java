@@ -14,21 +14,15 @@ public class ClearCMD {
 		Role role2 = message.getGuild().getRoles().get(1);
 		if(message.getGuild().getMember(message.getAuthor()).getRoles().contains(role) || message.getGuild().getMember(message.getAuthor()).getRoles().contains(role2)) {
 			
-			String args[] = command.split(" ");
-			
-			if(args.length == 1) {
-				
-				MessageHistory history = new MessageHistory(message.getChannel());
-				List<Message> msgs;
-				try {
-					while(true) {
-						msgs = history.retrievePast(1).complete();
-						msgs.get(0).delete().queue();
-					}
-				}catch (Exception e) {
-					//none
+			MessageHistory history = new MessageHistory(message.getChannel());
+			List<Message> msgs;
+			try {
+				while(true) {
+					msgs = history.retrievePast(1).complete();
+					msgs.get(0).delete().queue();
 				}
-				
+			}catch (Exception e) {
+				//none
 			}
 			
 		}else {

@@ -42,12 +42,24 @@ public class VoiceChannelEvents implements EventListener{
 			@Override
 			public void run() {
 				
-				if(vc.getMembers().size() >= 2 && !vc.equals(member.getGuild().getVoiceChannelsByName("AFK", true).get(0))) {
+				if(vc.getMembers() == null || vc.getMembers().size() == 0) {
 					
-					if(vc.getMembers().contains(member)) {
-						MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp")+14);
-						LevelsUtils.levelUP(member);
-						go(member, vc);
+					return;
+					
+				}else {
+					
+					if(vc.getMembers().size() >= 2) {
+						
+						if(!vc.equals(member.getGuild().getVoiceChannelsByName("🕥 AFK", true).get(0))) {
+							
+							if(vc.getMembers().contains(member)) {
+								MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp")+14);
+								LevelsUtils.levelUP(member);
+								go(member, vc);
+							}
+							
+						}
+						
 					}
 					
 				}

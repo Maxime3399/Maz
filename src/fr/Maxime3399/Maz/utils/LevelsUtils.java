@@ -41,36 +41,40 @@ public class LevelsUtils {
 		int exp = MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp");
 		int level = MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "level");
 		
-		if(level != 500) {
+		if(!member.getUser().getName().equalsIgnoreCase("Tatsumaki") && !member.getUser().getName().equalsIgnoreCase("FredBoat♪♪")) {
 			
-			if(exp >= getRequiredExp(level)) {
+			if(level != 500) {
 				
-				exp = exp-getRequiredExp(level);
-				level = level+1;
-				
-				if(level >= 401) {
-					level = level-400;
-				}else if(level >= 301) {
-					level = level-300;
-				}else if(level >= 201) {
-					level = level-200;
-				}else if(level >= 101) {
-					level = level-100;
+				if(exp >= getRequiredExp(level)) {
+					
+					exp = exp-getRequiredExp(level);
+					level = level+1;
+					
+					if(level >= 401) {
+						level = level-400;
+					}else if(level >= 301) {
+						level = level-300;
+					}else if(level >= 201) {
+						level = level-200;
+					}else if(level >= 101) {
+						level = level-100;
+					}
+					
+					int anc = level-1;
+					GuildController gc = member.getGuild().getController();
+					if(anc != 0) {
+						Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
+						gc.removeSingleRoleFromMember(member, rAncient).complete();
+					}
+					Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
+					gc.addSingleRoleToMember(member, rNew).complete();
+					
+					member.getGuild().getTextChannelsByName("🔋bot", true).get(0).sendMessage(member.getAsMention()+" est monté au niveau "+level+" !").complete();
+					
+					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
+					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
+					
 				}
-				
-				int anc = level-1;
-				GuildController gc = member.getGuild().getController();
-				if(anc != 0) {
-					Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
-					gc.removeSingleRoleFromMember(member, rAncient).complete();
-				}
-				Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
-				gc.addSingleRoleToMember(member, rNew).complete();
-				
-				member.getGuild().getTextChannelsByName("🔋bot", true).get(0).sendMessage(member.getAsMention()+" est monté au niveau "+level+" !").complete();
-				
-				MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
-				MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
 				
 			}
 			

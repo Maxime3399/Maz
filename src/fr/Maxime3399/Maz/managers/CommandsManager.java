@@ -1,5 +1,6 @@
 package fr.Maxime3399.Maz.managers;
 
+import fr.Maxime3399.Maz.commands.AnniversaireCMD;
 import fr.Maxime3399.Maz.commands.ClearCMD;
 import fr.Maxime3399.Maz.commands.ProfileCMD;
 import fr.Maxime3399.Maz.commands.RegisterCMD;
@@ -25,6 +26,10 @@ public class CommandsManager {
 		}else if(command.startsWith("clear")) {
 			
 			ClearCMD.execute(message, command);
+			
+		}else if(command.startsWith("anniversaire")) {
+			
+			AnniversaireCMD.execute(message, command);
 			
 		}
 		
