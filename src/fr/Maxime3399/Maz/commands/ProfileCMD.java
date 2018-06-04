@@ -16,16 +16,16 @@ public class ProfileCMD {
 			String id = message.getAuthor().getId();
 			int exp = MySQLUtils.getInt("maz_players", "id", message.getAuthor().getId(), "exp");
 			int level = MySQLUtils.getInt("maz_players", "id", message.getAuthor().getId(), "level");
-			int money = MySQLUtils.getInt("maz_players", "id", message.getAuthor().getId(), "exp");
+			int money = MySQLUtils.getInt("maz_players", "id", message.getAuthor().getId(), "money");
 			String birthday = MySQLUtils.getString("maz_players", "id", message.getAuthor().getId(), "birthday");
 			
 			if(birthday.equals("none")) {
-				birthday = "*Non définis*";
+				birthday = "*Non définit*";
 			}else {
 				birthday = "`"+birthday+"`";
 			}
 			
-			message.getChannel().sendMessage(" __Profile de "+message.getAuthor().getAsMention()+"__\n \n**Informations :**\nNom : `"+message.getAuthor().getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nMoney : `"+money+"`\nXP : `"+exp+"/"+LevelsUtils.getRequiredExp(level)+"`\nNiveau : `"+level+"`").complete();
+			message.getChannel().sendMessage(" __Profile de "+message.getAuthor().getAsMention()+"__\n \n**Informations :**\nNom : `"+message.getAuthor().getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nCrédits : `"+money+"`\nXP : `"+exp+"/"+LevelsUtils.getRequiredExp(level)+"`\nNiveau : `"+level+"`").complete();
 			
 		}else if(args.length == 2) {
 			
@@ -44,12 +44,12 @@ public class ProfileCMD {
 				String birthday = MySQLUtils.getString("maz_players", "id", user.getId(), "birthday");
 				
 				if(birthday.equals("none")) {
-					birthday = "*Non définis*";
+					birthday = "*Non définit*";
 				}else {
 					birthday = "`"+birthday+"`";
 				}
 				
-				message.getChannel().sendMessage(" __Profile de "+user.getAsMention()+"__\n \n**Informations :**\nNom : `"+user.getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nMoney : `"+money+"`\nXP : `"+exp+"/"+LevelsUtils.getRequiredExp(level)+"`\nNiveau : `"+level+"`").complete();
+				message.getChannel().sendMessage(" __Profile de "+user.getAsMention()+"__\n \n**Informations :**\nNom : `"+user.getName()+"`\nID : `"+id+"`\nAnniversaire : "+birthday+"\n \n**Compte :**\nCrédits : `"+money+"`\nXP : `"+exp+"/"+LevelsUtils.getRequiredExp(level)+"`\nNiveau : `"+level+"`").complete();
 				
 			}
 			
