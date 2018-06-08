@@ -50,6 +50,9 @@ public class LevelsUtils {
 					exp = exp-getRequiredExp(level);
 					level = level+1;
 					
+					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
+					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
+					
 					if(level >= 401) {
 						level = level-400;
 					}else if(level >= 301) {
@@ -66,13 +69,17 @@ public class LevelsUtils {
 						Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
 						gc.removeSingleRoleFromMember(member, rAncient).complete();
 					}
-					Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
-					gc.addSingleRoleToMember(member, rNew).complete();
+					if(level >= 95) {
+						Role rNew = member.getGuild().getRolesByName("👑Niveau "+level, true).get(0);
+						gc.addSingleRoleToMember(member, rNew).complete();
+					}else {
+						Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
+						gc.addSingleRoleToMember(member, rNew).complete();
+					}
 					
 					member.getGuild().getTextChannelsByName("🔋bot", true).get(0).sendMessage(member.getAsMention()+" est monté au niveau "+level+" !").complete();
 					
-					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
-					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
+					levelUP(member);
 					
 				}
 				

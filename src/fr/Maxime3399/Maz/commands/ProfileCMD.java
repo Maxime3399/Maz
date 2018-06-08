@@ -40,7 +40,7 @@ public class ProfileCMD {
 				String id = user.getId();
 				int exp = MySQLUtils.getInt("maz_players", "id", user.getId(), "exp");
 				int level = MySQLUtils.getInt("maz_players", "id", user.getId(), "level");
-				int money = MySQLUtils.getInt("maz_players", "id", user.getId(), "exp");
+				int money = MySQLUtils.getInt("maz_players", "id", user.getId(), "money");
 				String birthday = MySQLUtils.getString("maz_players", "id", user.getId(), "birthday");
 				
 				if(birthday.equals("none")) {
