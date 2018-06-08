@@ -53,6 +53,16 @@ public class LevelsUtils {
 					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
 					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
 					
+					member.getGuild().getTextChannelsByName("🔋bot", true).get(0).sendMessage(member.getAsMention()+" est monté au niveau "+level+" !").complete();
+					GuildController gc = member.getGuild().getController();
+					
+					if(level == 401 || level == 301 || level == 201 || level == 101) {
+						
+						Role rAncient = member.getGuild().getRolesByName("👑Niveau "+100, true).get(0);
+						gc.removeSingleRoleFromMember(member, rAncient).complete();
+						
+					}
+					
 					if(level >= 401) {
 						level = level-400;
 					}else if(level >= 301) {
@@ -64,10 +74,13 @@ public class LevelsUtils {
 					}
 					
 					int anc = level-1;
-					GuildController gc = member.getGuild().getController();
 					if(anc != 0) {
 						Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
 						gc.removeSingleRoleFromMember(member, rAncient).complete();
+						if(anc >= 95) {
+							Role rAncient2 = member.getGuild().getRolesByName("👑Niveau "+anc, true).get(0);
+							gc.removeSingleRoleFromMember(member, rAncient2).complete();
+						}
 					}
 					if(level >= 95) {
 						Role rNew = member.getGuild().getRolesByName("👑Niveau "+level, true).get(0);
@@ -76,8 +89,6 @@ public class LevelsUtils {
 						Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
 						gc.addSingleRoleToMember(member, rNew).complete();
 					}
-					
-					member.getGuild().getTextChannelsByName("🔋bot", true).get(0).sendMessage(member.getAsMention()+" est monté au niveau "+level+" !").complete();
 					
 					levelUP(member);
 					
