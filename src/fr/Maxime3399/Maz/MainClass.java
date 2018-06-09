@@ -24,7 +24,7 @@ public class MainClass {
 			
 			try {
 				
-				jda = new JDABuilder(AccountType.BOT).setToken("").buildAsync();
+				jda = new JDABuilder(AccountType.BOT).setToken(MySQLUtils.getString("maz_info", "info_type", "secret_key", "info_string")).buildAsync();
 				
 			} catch (LoginException e) {
 				
