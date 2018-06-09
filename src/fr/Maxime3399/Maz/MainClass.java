@@ -24,7 +24,7 @@ public class MainClass {
 			
 			try {
 				
-				jda = new JDABuilder(AccountType.BOT).setToken("NDUxNzY4MzUyMDk3MTczNTQ0.DfMXKA.5fYsUex1VkSTRQoNl4XRdXgkITY").buildAsync();
+				jda = new JDABuilder(AccountType.BOT).setToken("").buildAsync();
 				
 			} catch (LoginException e) {
 				
