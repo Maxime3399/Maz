@@ -51,7 +51,7 @@ public class AnniversaireCMD {
 						
 					}else {
 						
-						MySQLUtils.setString("maz_players", "id", message.getAuthor().getId(), "birthday", day+"/"+month);
+						MySQLUtils.setString("maz_players", "id", message.getAuthor().getId(), "birthday", day+"/"+i[1]);
 						message.getChannel().sendMessage(message.getAuthor().getAsMention()+" | Date d'anniversaire définie !").complete();
 						
 					}
