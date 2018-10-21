@@ -34,11 +34,12 @@ public class VoiceChannelEvents implements EventListener{
 		}
 		
 	}
-	
+
 	private static void go(Member member, VoiceChannel vc) {
 		
 		new Timer().schedule(new TimerTask() {
 			
+			@SuppressWarnings("unlikely-arg-type")
 			@Override
 			public void run() {
 				
@@ -50,12 +51,14 @@ public class VoiceChannelEvents implements EventListener{
 					
 					if(vc.getMembers().size() >= 2) {
 						
-						if(!vc.equals(member.getGuild().getVoiceChannelsByName("🕥 AFK", true).get(0))) {
+						if(!vc.equals(member.getGuild().getVoiceChannelsByName("🕗 AFK", true))) {
 							
 							if(vc.getMembers().contains(member)) {
-								MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp")+14);
+								
+								MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp")+11);
 								LevelsUtils.levelUP(member);
 								go(member, vc);
+								
 							}
 							
 						}

@@ -16,12 +16,6 @@ public class MessageEvents implements EventListener{
 			
 			MessageReceivedEvent e = (MessageReceivedEvent) event;
 			
-			if(e.getMessage().getContentDisplay().equalsIgnoreCase("ping")) {
-				
-				e.getTextChannel().sendMessage("pong").complete();
-				
-			}
-			
 			if(!e.getAuthor().equals(e.getJDA().getSelfUser())) {
 				
 				String message = e.getMessage().getContentRaw();
@@ -34,7 +28,7 @@ public class MessageEvents implements EventListener{
 					
 					if(!message.startsWith("t!") && !message.startsWith(";;")) {
 						
-						MySQLUtils.setInt("maz_players", "id", e.getAuthor().getId(), "exp", MySQLUtils.getInt("maz_players", "id", e.getAuthor().getId(), "exp")+50);
+						MySQLUtils.setInt("maz_players", "id", e.getAuthor().getId(), "exp", MySQLUtils.getInt("maz_players", "id", e.getAuthor().getId(), "exp")+4);
 						LevelsUtils.levelUP(e.getGuild().getMember(e.getAuthor()));
 						
 					}

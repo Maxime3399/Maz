@@ -17,13 +17,34 @@ public class ClearCMD {
 			MessageHistory history = new MessageHistory(message.getChannel());
 			List<Message> msgs;
 			try {
-				while(true) {
+				while(history.size() > 0) {
 					msgs = history.retrievePast(1).complete();
-					msgs.get(0).delete().queue();
+					msgs.get(0).delete().complete();
 				}
 			}catch (Exception e) {
 				//none
 			}
+			
+			/*new Timer().schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					
+					MessageHistory history = new MessageHistory(message.getChannel());
+					
+					if(history.size() == 0) {
+						
+						this.cancel();
+						
+					}else {
+						
+						history.getMessageById(message.getChannel().getLatestMessageIdLong()).delete().queue();
+						
+					}
+					
+				}
+				
+			}, 10);*/
 			
 		}else {
 			

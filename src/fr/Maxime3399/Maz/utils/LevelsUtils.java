@@ -40,6 +40,7 @@ public class LevelsUtils {
 		
 		int exp = MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "exp");
 		int level = MySQLUtils.getInt("maz_players", "id", member.getUser().getId(), "level");
+		int Rl = 0;
 		
 		if(!member.getUser().getName().equalsIgnoreCase("Tatsumaki") && !member.getUser().getName().equalsIgnoreCase("FredBoat♪♪")) {
 			
@@ -49,6 +50,7 @@ public class LevelsUtils {
 					
 					exp = exp-getRequiredExp(level);
 					level = level+1;
+					Rl = level;
 					
 					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "exp", exp);
 					MySQLUtils.setInt("maz_players", "id", member.getUser().getId(), "level", level);
@@ -75,19 +77,54 @@ public class LevelsUtils {
 					
 					int anc = level-1;
 					if(anc != 0) {
-						Role rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
-						gc.removeSingleRoleFromMember(member, rAncient).complete();
-						if(anc >= 95) {
-							Role rAncient2 = member.getGuild().getRolesByName("👑Niveau "+anc, true).get(0);
-							gc.removeSingleRoleFromMember(member, rAncient2).complete();
+						Role rAncient = null;
+						if(anc == 100) {
+							rAncient = member.getGuild().getRolesByName("👑Niveau👑 "+anc, true).get(0);
+						}else if(anc >= 97) {
+							rAncient = member.getGuild().getRolesByName("👑Niveau "+anc, true).get(0);
+						}else if(anc >= 90) {
+							rAncient = member.getGuild().getRolesByName("⚡Niveau "+anc, true).get(0);
+						}else {
+							rAncient = member.getGuild().getRolesByName("Niveau "+anc, true).get(0);
 						}
+						gc.removeSingleRoleFromMember(member, rAncient).complete();
 					}
-					if(level >= 95) {
-						Role rNew = member.getGuild().getRolesByName("👑Niveau "+level, true).get(0);
-						gc.addSingleRoleToMember(member, rNew).complete();
+					Role rNew = null;
+					if(level == 100) {
+						rNew = member.getGuild().getRolesByName("👑Niveau👑 "+level, true).get(0);
+					}else if(level >= 97) {
+						rNew = member.getGuild().getRolesByName("👑Niveau "+level, true).get(0);
+					}else if(level >= 90) {
+						rNew = member.getGuild().getRolesByName("⚡Niveau "+level, true).get(0);
 					}else {
-						Role rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
-						gc.addSingleRoleToMember(member, rNew).complete();
+						rNew = member.getGuild().getRolesByName("Niveau "+level, true).get(0);
+					}
+					gc.addSingleRoleToMember(member, rNew).complete();
+					
+					if(Rl == 50) {
+						Role rS = member.getGuild().getRolesByName("🔰Actif", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 100) {
+						Role rS = member.getGuild().getRolesByName("🔰Habitué🔰", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 150) {
+						Role rS = member.getGuild().getRolesByName("⭐Ammateur", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 200) {
+						Role rS = member.getGuild().getRolesByName("⭐Accro⭐", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 250) {
+						Role rS = member.getGuild().getRolesByName("💮Adicte", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 300) {
+						Role rS = member.getGuild().getRolesByName("💮Doyen💮", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 350) {
+						Role rS = member.getGuild().getRolesByName("🔥Ancêtre", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
+					}else if(Rl == 400) {
+						Role rS = member.getGuild().getRolesByName("🔥Légende🔥", true).get(0);
+						gc.addSingleRoleToMember(member, rS);
 					}
 					
 					levelUP(member);
